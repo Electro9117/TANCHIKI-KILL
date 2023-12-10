@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 
 fontUI = pygame.font.Font(None, 30)
 
-imgBrick = pygame.image.load('C:\\Users\ASUS\Desktop\Технологии программирования\DDZ Tanks\images\\block_brick.png')
+imgBrick = pygame.image.load('images/block_brick.png')
 imgTanks = [
     pygame.image.load('images/tank1.png'),
     pygame.image.load('images/tank2.png'),
