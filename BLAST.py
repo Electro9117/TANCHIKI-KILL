@@ -46,6 +46,7 @@ class Wall_blast(pygame.sprite.Sprite):
         self.tile_remove = tile_remove
         self.frame_index_blast = 0
         self.direction = direction
+        # cсвязь направления и угла 
         if self.direction == 1:
             self.angle = 270
         elif self.direction == -1:
