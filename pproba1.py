@@ -1,13 +1,11 @@
 from time import sleep
 import pygame
 import pygame_menu
-from pygame_menu import themes
-import pygame
 import main
 
  
 pygame.init()
-surface = pygame.display.set_mode((630, 630))
+surface = pygame.display.set_mode((700, 800))
  
 def set_difficulty(value, difficulty):
     print(value)
@@ -25,18 +23,18 @@ def start_the_game2():
 def level_menu():
     mainmenu._open(level)
  
- 
-mainmenu = pygame_menu.Menu('Welcome', 630, 630, theme=themes.THEME_SOLARIZED)
+# кнопки не функцианируют 
+mainmenu = pygame_menu.Menu('Welcome', 700, 800, theme=themes.THEME_SOLARIZED)
 mainmenu.add.text_input('Name: ', default='username')
 mainmenu.add.button('Play', main)
 mainmenu.add.button('Multiplay', start_the_game2)
 mainmenu.add.button('Levels', level_menu)
 mainmenu.add.button('Quit', pygame_menu.events.EXIT)
- 
+# ----------------------------------------------------------
 level = pygame_menu.Menu('Select a Difficulty', 630, 630, theme=themes.THEME_BLUE)
 level.add.selector('Difficulty :', [('Easy', 1), ('Medium', 2), ('Hard', 3)], onchange=set_difficulty)
  
-loading = pygame_menu.Menu('Loading the Game...', 630, 630, theme=themes.THEME_DARK)
+loading = pygame_menu.Menu('Loading the Game...', 700, 800, theme=themes.THEME_DARK)
 loading.add.progress_bar("Progress", progressbar_id = "1", default=0, width = 200, )
  
 arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size = (10, 15))
