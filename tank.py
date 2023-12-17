@@ -1,3 +1,170 @@
+import random
+import os
+import pygame
+from pygame.locals import *
+from pygame import mixer
+
+mixer.init()  # louding and plaing sounds
+pygame.init()
+
+clockobject = pygame.time.Clock()
+fps = 90
+screen_width = 1000
+screen_height = 700
+start_game = True
+pass_game = False
+
+counter = pygame.time.get_ticks()  # tics-> millseconds
+update_time = pygame.time.get_ticks()
+update_time1 = pygame.time.get_ticks()
+score_time = pygame.time.get_ticks()
+game_start_time = pygame.time.get_ticks()
+
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('KSS Battle')  # Set the current window caption
+
+# define game variables
+tile_size = 50
+player_list = []  # contains player characters
+enemy_list = []   # contains enemy characters
+char_list = []    # contains all characters
+
+player_list_detial = []  # contains player characters detial
+enemy_list_detial = []   # contains enemy characters detial
+char_list_detial = []    # contains all characters detial
+
+enemy_pastaway = []  # dethes enemy
+tank_pastaway = []  # -- = -- ourselfies
+player_pastaway = []
+
+p1_point = []
+p2_point = []
+# p3_point = []
+# p4_point = []
+
+p1_TP = []
+p2_TP = []
+# p3_TP = []
+# p4_TP = []
+
+powerUP_count = [5, 10, 15]
+enemy_levelUP = [6, 11, 16]
+enemy_count = [int(i) for i in range(-5, 16)]  # ????????
+current_level = 1
+
+# define colours
+BG = (144, 201, 120)
+RED = (255, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+BLACK = (0, 0, 0)
+PINK = (235, 65, 54)
+
+# load images
+bg_img = pygame.image.load(
+    './resources/images/grassbg2.png')
+bg_img = pygame.transform.scale(bg_img, (1000, 700))
+rocket_img = pygame.image.load(
+    f'./resources/images/rocket/1.png')
+detial_img = pygame.image.load(
+    './resources/images/detials.png')
+bc_img = pygame.image.load(
+    './resources/images/intro/bc.png')
+ps_img = pygame.image.load(
+    './resources/images/intro/ps.png')
+co_img = pygame.image.load(
+    './resources/images/intro/co.png')
+control_img = pygame.image.load(
+    './resources/images/intro/control.png')
+pause_img = pygame.image.load(
+    './resources/images/intro/pause.png')
+re_img = pygame.image.load(
+    './resources/images/intro/resume.png')
+qg_img = pygame.image.load(
+    './resources/images/intro/qg.png')
+rest_img = pygame.image.load(
+    './resources/images/intro/rest.png')
+score_img = pygame.image.load(
+    './resources/images/intro/score.png')
+pl_img = []
+for i in range(1, 3):
+    img = pygame.image.load(
+        f'./resources/images/player1/lv1/right/{i}.png')
+    pl_img.append(img)
+
+# load sounds
+# tank move sound
+tank_move = mixer.Sound(
+    './resources/sound/move.ogg')
+tank_move.set_volume(0.0)
+tank_move.play(-1)
+
+# bonus sound
+bonus = pygame.mixer.Sound(
+    './resources/sound/bonus.ogg')
+bonus.set_volume(0.9)
+
+# tank blast sound
+tank_blast = pygame.mixer.Sound(
+    './resources/sound/explosion.ogg')
+tank_blast.set_volume(0.9)
+
+# tank fire sound
+tank_fire = pygame.mixer.Sound(
+    './resources/sound/fire.ogg')
+tank_fire.set_volume(0.9)
+
+# brick sound
+brick = pygame.mixer.Sound(
+    './resources/sound/brick.ogg')
+brick.set_volume(0.9)
+
+# gamestart sound
+gamestart = pygame.mixer.Sound(
+    './resources/sound/gamestart.ogg')
+gamestart.set_volume(0.9)
+
+# gameover sound
+gameover = pygame.mixer.Sound(
+    './resources/sound/gameover.ogg')
+gameover.set_volume(0.9)
+
+# score sound
+score = pygame.mixer.Sound(
+    './resources/sound/score.ogg')
+score.set_volume(0.9)
+
+# steel sound
+steel = pygame.mixer.Sound(
+    './resources/sound/steel.ogg')
+steel.set_volume(0.9)
+
+# rocket_blast sound
+rblast = pygame.mixer.Sound(
+    './resources/sound/rblast.wav')
+rblast.set_volume(0.9)
+
+# high score sound
+hg = pygame.mixer.Sound(
+    './resources/sound/hg.mp3')
+hg.set_volume(0.9)
+
+
+def draw_grid():  # сетка
+    for line in range(0, 20):
+        pygame.draw.line(screen, (255, 255, 255), (0, line *
+                         tile_size), (screen_width, line * tile_size))
+        pygame.draw.line(screen, (255, 255, 255), (line *
+                         tile_size, 0), (line * tile_size, screen_height))
+
+
+def rl():
+    while True:
+        a = random.randint(0, 6)
+        if a != 1:
+            break
+    return a
+
 ############################################################## TANK #######################################################
 
 
