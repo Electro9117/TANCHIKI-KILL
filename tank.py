@@ -179,7 +179,7 @@ class Tank(pygame.sprite.Sprite):
         self.alive = True
         self.level = level
         self.fire_power = 1
-        self.skit = False  # ??????????????????????????????????????????????????????????????????????????????????????????????
+        self.skit = False  
         self.char_type = char_type
         self.speed_o = self.speed = speed
         self.shoot_cooldown = 0
@@ -223,17 +223,17 @@ class Tank(pygame.sprite.Sprite):
 
         # load tank shiled images
         self.tank_shiled = []
-        for i in range(1, len(os.listdir(f'C:/Users/91166/Desktop/python/tanki/resources/images/shiled'))+1):
+        for i in range(1, len(os.listdir(f'./resources/images/shiled'))+1):
             img = pygame.image.load(
-                f"C:/Users/91166/Desktop/python/tanki/resources/images/shiled/{i}.png")
+                f"./resources/images/shiled/{i}.png")
             self.tank_shiled.append(img)
         self.image_shiled = self.tank_shiled[0]
 
         # load tank spawn images
         self.tank_spawn = []
-        for i in range(1, len(os.listdir(f'C:/Users/91166/Desktop/python/tanki/resources/images/tank_spawn'))+1):
+        for i in range(1, len(os.listdir(f'./resources/images/tank_spawn'))+1):
             img = pygame.image.load(
-                f"C:/Users/91166/Desktop/python/tanki/resources/images/tank_spawn/{i}.png")
+                f"./resources/images/tank_spawn/{i}.png")
             self.tank_spawn.append(img)
         self.image_spawn = self.tank_spawn[0]
 
@@ -247,17 +247,17 @@ class Tank(pygame.sprite.Sprite):
                 # count number of files in the folder
                 if char_type != "player1" and char_type != "player2":
                     num_of_frames = len(os.listdir(
-                        f'C:/Users/91166/Desktop/python/tanki/resources/images/enemy/{"lv"+str(animation_index)}/{animation}'))
+                        f'./resources/images/enemy/{"lv"+str(animation_index)}/{animation}'))
                 else:
                     num_of_frames = len(os.listdir(
-                        f'C:/Users/91166/Desktop/python/tanki/resources/images/{self.char_type}/{"lv"+str(animation_index)}/{animation}'))
+                        f'./tanki/resources/images/{self.char_type}/{"lv"+str(animation_index)}/{animation}'))
                 for i in range(1, num_of_frames+1):
                     if char_type != "player1" and char_type != "player2":
                         img = pygame.image.load(
-                            f"C:/Users/91166/Desktop/python/tanki/resources/images/enemy/{'lv'+str(animation_index)}/{animation}/{i}.png")
+                            f"./resources/images/enemy/{'lv'+str(animation_index)}/{animation}/{i}.png")
                     else:
                         img = pygame.image.load(
-                            f"C:/Users/91166/Desktop/python/tanki/resources/images/{self.char_type}/{'lv'+str(animation_index)}/{animation}/{i}.png")
+                            f"./resources/images/{self.char_type}/{'lv'+str(animation_index)}/{animation}/{i}.png")
                     temp_list.append(img)
                 temp_list_lv.append(temp_list)
             self.animation_list.append(temp_list_lv)
@@ -452,7 +452,7 @@ class Tank(pygame.sprite.Sprite):
             dx = 0
             self.ran_move = random.choice([1, 2, 3])
             self.movement_count = 0
-
+    # Enemy controls 
     def AI(self):
         if self.alive:
             self.movement_count += 1
@@ -513,7 +513,7 @@ class Tank(pygame.sprite.Sprite):
                 if pl.alive:
                     if self.vision.colliderect(pl.rect):
                         self.enemy_shoot()
-
+ # стрельба 
     def shoot_rocket(self):
         if self.born_ == False and self.timer == False and self.shoot == True:
             if self.fire_power <= 2 and self.shoot_cooldown == 0:
@@ -561,7 +561,7 @@ class Tank(pygame.sprite.Sprite):
         if pygame.time.get_ticks() - self.shiled_time_end > 30000:
             self.shiled_active = False
             self.health = self.level*5
-
+# задержка 
     def timer_cooldown(self):
         if pygame.time.get_ticks() - self.cooldown_timer > 15000:
             self.timer = False
